@@ -16,7 +16,7 @@ const Main = ({hues, addHue} : Props) => {
   return (
     <div className='flex flex-col'>
       <Header></Header>
-      <div className='flex flex-wrap w-full justify-center gap-8 overflow-y-auto'>
+      <div className='flex flex-wrap w-full justify-center gap-8 overflow-y-auto pb-2'>
          
           <PostHue addHue={addHue}/>
 
