@@ -1,26 +1,46 @@
-import { useState } from 'react'
-import Hue from './Hue'
+import React, { useState } from 'react';
+import Hue from './Hue';
 
-interface Props{
-    addHue: (color:string)=> void
+interface Props {
+  addHue: (color: string) => void;
 }
 
-const PostHue = (props:Props) => {
+const PostHue: React.FC<Props> = (props: Props) => {
+  const [color, setColor] = useState('#');
 
-    const[color, setColor] = useState('')
+  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    // Ensure the color input starts with '#'
+    setColor(inputValue.startsWith('#') ? inputValue : `#${inputValue}`);
+  };
 
   return (
-    <div className='flex flex-row p-4 justify-evenly gap-8'>
+    <div className="flex flex-row p-4 justify-between items-center">
 
-        <div className='flex flex-col w-full p-4 gap-4' style={{backgroundColor: color}}>
-            <input type="text" name="hue" id="hue" onChange={ (event) => setColor(event.target.value) } />
-            <a href="#" onClick={ () => props.addHue(color)  } className="btn bg-white text-cyan-950 text-center">Post</a>
-        </div>
+      {/* Color Input Section */}
+      <div className="flex flex-col p-4 gap-4 text-center">
+        <input
+          type="text"
+          name="hue"
+          id="hue"
+          value={color}
+          onChange={handleColorChange}
+          placeholder="Enter color code"
+          className="p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-cyan-500"
+        />
+        <button
+          onClick={() => props.addHue(color)}
+          className={`btn bg-cyan-500 text-white hover:bg-cyan-600 py-2 rounded-md w-full`}
+        >
+          Post
+        </button>
+      </div>
 
-        <Hue hue={ {color, username:"kaylee", likes:3}} />
+      {/* Display Posted Hue */}
+      <Hue hue={{ color, username: "kaylee", likes: 3 }} />
 
     </div>
-  )
-}
+  );
+};
 
-export default PostHue
+export default PostHue;
