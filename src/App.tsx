@@ -16,7 +16,7 @@ function App() {
 
   useEffect( ()=>
   {
-    fetch('./sampleData.json')
+    fetch('https://greenegunnar.pythonanywhere.com/api/hues/')
     .then( res => res.json() )
     .then( data => setHues(data) ) 
   }, [])
