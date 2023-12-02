@@ -1,5 +1,6 @@
 import Hue from './Hue'
 import PostHue from './PostHue'
+import Header from './Header'
 
 interface HueObject {
     color: string,
@@ -13,18 +14,20 @@ interface Props {
 
 const Main = ({hues, addHue} : Props) => {
   return (
-    <div className='flex flex-wrap w-full justify-center gap-8 overflow-y-auto'>
+    <div className='flex flex-col'>
+      <Header></Header>
+      <div className='flex flex-wrap w-full justify-center gap-8 overflow-y-auto'>
+          <PostHue addHue={addHue}/>
 
-        <PostHue addHue={addHue}/>
 
+          {hues.map( (hue) => ( 
+              
+              <Hue hue={hue}/>
+        ))}
 
-        {hues.map( (hue) => ( 
-            
-            <Hue hue={hue}/>
-       ))}
+          
 
-        
-
+      </div>
     </div>
   )
 }
