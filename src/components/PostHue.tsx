@@ -14,11 +14,18 @@ const PostHue: React.FC<Props> = (props: Props) => {
     setColor(inputValue.startsWith('#') ? inputValue : `#${inputValue}`);
   };
 
+  const handlePostClick = () => {
+    // Call the addHue function with the current color
+    props.addHue(color);
+    // Reset the color to an initial value or an empty string
+    setColor('#'); // You can set it to an empty string by using setColor('')
+  };
+
   return (
-    <div className="flex flex-row  justify-between items-center">
+    <div className="flex flex-row justify-between items-center">
 
       {/* Color Input Section */}
-      <div className="flex flex-col p-4 gap-4 text-center">
+      <div className="flex flex-col p-11 gap-4 text-center">
         <input
           type="text"
           name="hue"
@@ -29,7 +36,7 @@ const PostHue: React.FC<Props> = (props: Props) => {
           className="p-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-cyan-500"
         />
         <button
-          onClick={() => props.addHue(color)}
+          onClick={handlePostClick}
           className={`btn bg-cyan-500 text-white hover:bg-cyan-600 py-2 rounded-md w-full`}
         >
           Post
