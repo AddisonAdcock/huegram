@@ -1,11 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Main from './components/Main';
 import Profile from './components/Profile';
 
-function App() {
-  const [hues, setHues] = useState([]);
+interface Hue {
+  color: string;
+  username: string;
+  id: number;
+  likes: number;
+}
 
-  const [currentUser] = useState({
+interface User {
+  username: string;
+  likes: number;
+  hues: Hue[];
+}
+
+function App() {
+  const [hues, setHues] = useState<Hue[]>([]);
+
+  const [currentUser] = useState<User>({
     username: 'kavery',
     likes: 58,
     hues: [{ id: 36, color: '#ffa510', username: 'kavery', likes: 15 }],
@@ -15,12 +28,12 @@ function App() {
     fetch('https://greenegunnar.pythonanywhere.com/api/hues/')
       .then((res) => res.json())
       .then((data) =>
-        setHues(data.map((item) => ({ ...item, color: item.hex_code })))
+        setHues(data.map((item: { hex_code: string }) => ({ ...item, color: item.hex_code })))
       );
   }, []);
 
   const addNewHue = (color: string) => {
-    const newHue = {
+    const newHue: Hue = {
       color,
       username: currentUser.username,
       id: hues.length + 1,
