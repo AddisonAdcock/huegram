@@ -5,7 +5,7 @@ import Profile from './components/Profile';
 import Header from './components/Header';
 
 interface HueObject {
-  id: number;
+  id: number | string;
   color: string;
   username: string;
   likes: number;
@@ -90,7 +90,7 @@ function App() {
     const newHue: HueObject = {
       color,
       username: 'abbieV',
-      id: `user_${currentUser?.hues.length! + 1}`,
+      id: `${currentUser?.hues.length! + 1}`,
       likes: 0,
       isLiked: false,
     };
