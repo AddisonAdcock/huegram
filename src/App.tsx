@@ -1,3 +1,5 @@
+// App.tsx
+
 import { useEffect, useState } from 'react';
 import Main from './components/Main';
 import Profile from './components/Profile';
@@ -133,10 +135,12 @@ function App() {
   };
 
   return (
-    <div className="flex bg-slate-800 h-screen">
+    <div className= "flex flex-col">
       <Header onSearchChange={handleSearchChange} />
-      <Main hues={hues} addHue={addNewHue} toggleLike={toggleLikeForHue} searchTerm={searchTerm} />
-      <Profile currentUser={currentUser} />
+      <div className="flex bg-slate-800 h-screen">
+        <Main hues={hues} addHue={addNewHue} toggleLike={toggleLikeForHue} searchTerm={searchTerm} />
+        <Profile currentUser={currentUser} />
+      </div>
     </div>
   );
 }
