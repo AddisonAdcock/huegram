@@ -1,5 +1,3 @@
-// App.tsx
-
 import { useEffect, useState } from 'react';
 import Main from './components/Main';
 import Profile from './components/Profile';
@@ -46,13 +44,19 @@ function App() {
         userInfoResponse.json(),
       ]);
 
-      const userInfoHuesWithUniqueIds = userInfo.hues.map((hue: any, index: number) => ({
+      const userDataHuesWithUniqueIds = userData.hues.map((hue: any, index: number) => ({
         ...hue,
         id: `user_${index + 1}`,
         isLiked: false,
       }));
 
-      const mergedHues = [...userData.hues, ...userInfoHuesWithUniqueIds];
+      const userInfoHuesWithUniqueIds = userInfo.hues.map((hue: any) => ({
+        ...hue,
+        id: `user_${hue.id}`,
+        isLiked: false,
+      }));
+
+      const mergedHues = [...userDataHuesWithUniqueIds, ...userInfoHuesWithUniqueIds];
 
       const mergedUserData = {
         ...userData,
@@ -135,7 +139,7 @@ function App() {
   };
 
   return (
-    <div className= "flex flex-col">
+    <div className="flex flex-col">
       <Header onSearchChange={handleSearchChange} />
       <div className="flex bg-slate-800 h-screen">
         <Main hues={hues} addHue={addNewHue} toggleLike={toggleLikeForHue} searchTerm={searchTerm} />

@@ -1,8 +1,5 @@
-// Main.tsx
-
 import Hue from './Hue';
 import PostHue from './PostHue';
-import Header from './Header';
 
 interface HueObject {
   id: number;
@@ -25,12 +22,12 @@ const Main = ({ hues, addHue, toggleLike, searchTerm }: Props) => {
   );
 
   return (
-      <div className="flex flex-wrap w-full justify-center gap-8 overflow-y-auto pb-2">
-        <PostHue addHue={addHue} />
-        {filteredHues.map((hue) => (
-          <Hue key={hue.id} hue={hue} toggleLike={toggleLike} />
-        ))}
-      </div>
+    <div className="flex flex-wrap w-full justify-center gap-8 overflow-y-auto pb-2">
+      <PostHue addHue={addHue} />
+      {filteredHues.map((hue) => (
+        <Hue key={hue.id} hue={hue} toggleLike={toggleLike} />
+      ))}
+    </div>
   );
 };
 

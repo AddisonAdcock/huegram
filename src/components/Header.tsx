@@ -1,5 +1,3 @@
-// Header.tsx
-
 import React from 'react';
 
 interface HeaderProps {
@@ -12,7 +10,6 @@ const Header: React.FC<HeaderProps> = ({ onSearchChange }) => {
       <div className="flex items-center">
         <h1 className="text-2xl font-bold">HueGram</h1>
       </div>
-
       <div className="flex items-center">
         <input
           type="text"
