@@ -1,4 +1,5 @@
 //import React from 'react';
+import './Palette.css'
 
 interface HueObject {
   id?: number;
@@ -23,7 +24,7 @@ const Profile = ({ currentUser }: { currentUser: User | null }) => {
     <div className="flex flex-col border-2 p-8 items-center text-white">
       
       <h1>@{currentUser.username}</h1>
-      <div className="palette">
+      <div className="palette pb-5 pt-5">
           <div style={{ backgroundColor: '#ff2299'}}></div>
           <div style={{ backgroundColor: '#ee2299'}}></div>
           <div style={{ backgroundColor: '#dd2299'}}></div>
@@ -33,10 +34,31 @@ const Profile = ({ currentUser }: { currentUser: User | null }) => {
           <div style={{ backgroundColor: ''}}></div>
           <div style={{ backgroundColor: ''}}></div>
           <div style={{ backgroundColor: ''}}></div>
-          <div ></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
         </div>
-      <p>Likes: {currentUser.likes}</p>
-      <p>Posts: {currentUser.hues.length}</p>
+      <h1>{currentUser.likes}</h1>
+      <p>Likes</p>
+      <h1>{currentUser.hues.length}</h1>
+      <p>Posts</p>
     </div>
   );
 };
