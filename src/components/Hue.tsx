@@ -1,13 +1,16 @@
 import React from 'react';
 
 interface HueObject {
-  color: string;
-  username: string;
-  likes: number;
+  id?: number,
+  color: string,
+  username: string,
+  likes: number,
+  isLiked: boolean
 }
 
 interface Props {
-  hue: HueObject;
+  hue: HueObject,
+  toggleLike: (id:number) => void
 }
 
 function getTextColor(backgroundColor: string): string {
@@ -25,6 +28,7 @@ const Hue: React.FC<Props> = (props: Props) => {
 
   return (
     <div
+      onClick={() => props.toggleLike(props.hue.id!)}
       className={`flex flex-col h-64 aspect-square rounded-3xl text-center justify-between items-center border border-black relative ${textColorClass}`}
       style={{ backgroundColor: props.hue.color }}
     >
@@ -35,6 +39,7 @@ const Hue: React.FC<Props> = (props: Props) => {
       </div>
 
       {/* Heart Icon */}
+      {props.hue.isLiked &&
       <div className="absolute top-2 right-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,6 +55,7 @@ const Hue: React.FC<Props> = (props: Props) => {
           />
         </svg>
       </div>
+      }
     </div>
   );
 };
