@@ -89,7 +89,7 @@ function App() {
     const newHue: HueObject = {
       color,
       username: 'abbieV',
-      id: `user_${currentUser?.hues.length + 1}`,
+      id: `user_${(currentUser?.hues?.length || 0) + 1}`,
       likes: 0,
       isLiked: false,
     };
@@ -98,7 +98,7 @@ function App() {
 
     setCurrentUser((prevUser) => ({
       ...prevUser!,
-      hues: [newHue, ...prevUser!.hues],
+      hues: [newHue, ...(prevUser?.hues || [])],
     }));
   };
 
@@ -116,13 +116,13 @@ function App() {
     );
 
     setCurrentUser((prevUser) => {
-      const isCurrentUserPost = prevUser!.hues.some((hue) => hue.id === id);
+      const isCurrentUserPost = prevUser?.hues?.some((hue) => hue.id === id);
 
       if (isCurrentUserPost) {
         return {
           ...prevUser!,
-          likes: prevUser!.likes + (prevUser!.hues.find((hue) => hue.id === id)?.isLiked ? -1 : 1),
-          hues: prevUser!.hues.map((hue) =>
+          likes: prevUser!.likes + (prevUser!.hues?.find((hue) => hue.id === id)?.isLiked ? -1 : 1),
+          hues: prevUser!.hues?.map((hue) =>
             hue.id === id
               ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
               : hue

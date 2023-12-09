@@ -1,8 +1,9 @@
-//import React from 'react';
+// Profile.tsx
+import React from 'react';
 import './Palette.css';
 
 interface HueObject {
-  id?: number;
+  id: number | string;
   color: string;
   username: string;
   likes: number;
@@ -15,7 +16,7 @@ interface User {
   hues: HueObject[];
 }
 
-const Profile = ({ currentUser }: { currentUser: User | null }) => {
+const Profile: React.FC<{ currentUser: User | null }> = ({ currentUser }) => {
   if (!currentUser) {
     return null; // or display a loading state
   }
@@ -30,11 +31,9 @@ const Profile = ({ currentUser }: { currentUser: User | null }) => {
     <div className="flex flex-col border-2 p-8 items-center text-white">
       <h1>@{currentUser.username}</h1>
       <div className="palette pb-5 pt-5">
-        {/* Map over the user's hues and create corresponding divs */}
         {paletteColors.map((color, index) => (
           <div key={index} style={{ backgroundColor: color }}></div>
         ))}
-        {/* Fill remaining spaces with empty divs */}
         {emptyColors.map((_, index) => (
           <div key={index}></div>
         ))}
