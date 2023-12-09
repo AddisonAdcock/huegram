@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import Hue from './Hue';
 
-interface HueObject {
-  id: number;
-  color: string;
-  username: string;
-  likes: number;
-  isLiked: boolean;
-}
-
 interface Props {
   addHue: (color: string) => void;
 }
@@ -29,20 +21,9 @@ const PostHue: React.FC<Props> = (props: Props) => {
     setColor('#'); // You can set it to an empty string by using setColor('')
   };
 
-  const hue: HueObject = {
-    id: Math.random(), // Replace this with a proper unique ID
-    color,
-    username: 'kaylee',
-    likes: 0,
-    isLiked: false,
-  };
-
-  const toggleLike = (id: number) => {
-    // Implement the function to toggle the like status
-  };
-
   return (
     <div className="flex flex-row justify-between items-center">
+
       {/* Color Input Section */}
       <div className="flex flex-col p-11 gap-4 text-center">
         <input
@@ -63,7 +44,8 @@ const PostHue: React.FC<Props> = (props: Props) => {
       </div>
 
       {/* Display Posted Hue */}
-      <Hue hue={hue} toggleLike={toggleLike} />
+      <Hue hue={{ color, username: "kaylee", likes: 3 }} />
+
     </div>
   );
 };
