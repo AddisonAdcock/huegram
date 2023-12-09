@@ -3,7 +3,7 @@ import Main from './components/Main';
 import Profile from './components/Profile';
 
 interface HueObject {
-  id?: number;
+  id: number;
   color: string;
   username: string;
   likes: number;
@@ -46,10 +46,11 @@ function App() {
       .then((res) => res.json())
       .then((data) =>
         setHues(
-          data.map((item: { hex_code: string }) => ({
+          data.map((item: { hex_code: string }, index: number) => ({
             ...item,
             color: item.hex_code,
             isLiked: false,
+            id: index + 1,
           }))
         )
       );
@@ -66,7 +67,6 @@ function App() {
 
     setHues([newHue, ...hues]);
 
-    // Update user data
     setCurrentUser((prevUser) => ({
       ...prevUser!,
       hues: [newHue, ...prevUser!.hues],
@@ -82,7 +82,6 @@ function App() {
       )
     );
 
-    // Update user data
     setCurrentUser((prevUser) => ({
       ...prevUser!,
       hues: prevUser!.hues.map((hue) =>
