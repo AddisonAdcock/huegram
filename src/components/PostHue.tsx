@@ -44,7 +44,7 @@ const PostHue: React.FC<Props> = (props: Props) => {
       </div>
 
       {/* Display Posted Hue */}
-      <Hue hue={{ color, username: "kaylee", likes: 3 }} />
+      <Hue hue={{ color, username: "abbieV", likes: 3 }} />
 
     </div>
   );
