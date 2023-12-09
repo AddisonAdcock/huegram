@@ -1,0 +1,9 @@
+{
+    "username": "abbieV",
+    "likes": 58,
+    "hues": 
+    [ 
+        {"id": 5, "color": "#ff6747", "username": "abbieV", "likes": 55, "isLiked":false},
+        {"id": 6, "color": "#ff6748", "username": "abbieV", "likes": 3 , "isLiked":false} 
+    ]
+}
