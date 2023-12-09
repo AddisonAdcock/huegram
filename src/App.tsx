@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Main from './components/Main';
 import Profile from './components/Profile';
+import Header from './components/Header';
 
 interface HueObject {
   id: number | string;
@@ -19,6 +20,7 @@ interface User {
 function App() {
   const [hues, setHues] = useState<HueObject[]>([]);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchUserData().then((data) => {
@@ -80,7 +82,7 @@ function App() {
   const addNewHue = (color: string) => {
     const newHue: HueObject = {
       color,
-      username: 'abbieV', // Set the username explicitly to 'abbieV'
+      username: 'abbieV',
       id: `user_${currentUser?.hues.length + 1}`,
       likes: 0,
       isLiked: false,
@@ -126,9 +128,14 @@ function App() {
     });
   };
 
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term);
+  };
+
   return (
     <div className="flex bg-slate-800 h-screen">
-      <Main hues={hues} addHue={addNewHue} toggleLike={toggleLikeForHue} />
+      <Header onSearchChange={handleSearchChange} />
+      <Main hues={hues} addHue={addNewHue} toggleLike={toggleLikeForHue} searchTerm={searchTerm} />
       <Profile currentUser={currentUser} />
     </div>
   );

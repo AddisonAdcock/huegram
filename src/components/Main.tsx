@@ -14,16 +14,19 @@ interface Props {
   hues: HueObject[];
   addHue: (color: string) => void;
   toggleLike: (id: number) => void;
+  searchTerm: string;
 }
 
-const Main = ({ hues, addHue, toggleLike }: Props) => {
-  return (
-    <div className='flex flex-col'>
-      <Header />
-      <div className='flex flex-wrap w-full justify-center gap-8 overflow-y-auto pb-2'>
-        <PostHue addHue={addHue} />
+const Main = ({ hues, addHue, toggleLike, searchTerm }: Props) => {
+  const filteredHues = hues.filter((hue) =>
+    hue.color.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-        {hues.map((hue) => (
+  return (
+    <div className="flex flex-col">
+      <div className="flex flex-wrap w-full justify-center gap-8 overflow-y-auto pb-2">
+        <PostHue addHue={addHue} />
+        {filteredHues.map((hue) => (
           <Hue key={hue.id} hue={hue} toggleLike={toggleLike} />
         ))}
       </div>
