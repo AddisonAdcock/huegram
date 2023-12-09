@@ -1,13 +1,7 @@
-import Hue from './Hue';
+// Main.tsx
+import React from 'react';
+import Hue, { HueObject } from './Hue';
 import PostHue from './PostHue';
-
-interface HueObject {
-  id: number;
-  color: string;
-  username: string;
-  likes: number;
-  isLiked: boolean;
-}
 
 interface Props {
   hues: HueObject[];
@@ -16,7 +10,7 @@ interface Props {
   searchTerm: string;
 }
 
-const Main = ({ hues, addHue, toggleLike, searchTerm }: Props) => {
+const Main: React.FC<Props> = ({ hues, addHue, toggleLike, searchTerm }) => {
   const filteredHues = hues.filter((hue) =>
     hue.color.toLowerCase().includes(searchTerm.toLowerCase())
   );
