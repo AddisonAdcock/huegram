@@ -22,7 +22,7 @@ const PostHue: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-row justify-between ">
 
       {/* Color Input Section */}
       <div className="flex flex-col p-11 gap-4 text-center">
