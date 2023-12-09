@@ -2,7 +2,7 @@
 import React from 'react';
 
 export interface HueObject {
-  id: number;
+  id: number | string;
   color: string;
   username: string;
   likes: number;
@@ -29,7 +29,7 @@ const Hue: React.FC<Props> = (props: Props) => {
 
   return (
     <div
-      onClick={() => props.toggleLike(props.hue.id)}
+      onClick={() => props.toggleLike(Number(props.hue.id))}
       className={`flex flex-col h-64 aspect-square rounded-3xl text-center justify-between items-center border border-black relative ${textColorClass}`}
       style={{ backgroundColor: props.hue.color }}
     >

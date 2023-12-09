@@ -4,7 +4,7 @@ import Hue, { HueObject } from './Hue';
 import PostHue from './PostHue';
 
 interface Props {
-  hues: HueObject[];
+  hues: HueObject[]; // Change this line to specify that hues is an array of HueObject
   addHue: (color: string) => void;
   toggleLike: (id: number | string) => void;
   searchTerm: string;
