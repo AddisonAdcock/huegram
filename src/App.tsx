@@ -3,7 +3,7 @@ import Main from './components/Main';
 import Profile from './components/Profile';
 
 interface HueObject {
-  id: number;
+  id: number | string;
   color: string;
   username: string;
   likes: number;
@@ -32,9 +32,30 @@ function App() {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch('/userData.json');
-      const userData = await response.json();
-      return userData;
+      const [userDataResponse, userInfoResponse] = await Promise.all([
+        fetch('/userData.json'),
+        fetch('/userInfo.json'),
+      ]);
+
+      const [userData, userInfo] = await Promise.all([
+        userDataResponse.json(),
+        userInfoResponse.json(),
+      ]);
+
+      const userInfoHuesWithUniqueIds = userInfo.hues.map((hue: any, index: number) => ({
+        ...hue,
+        id: `user_${index + 1}`,
+        isLiked: false,
+      }));
+
+      const mergedHues = [...userData.hues, ...userInfoHuesWithUniqueIds];
+
+      const mergedUserData = {
+        ...userData,
+        hues: mergedHues,
+      };
+
+      return mergedUserData;
     } catch (error) {
       console.error('Error fetching user data:', error);
       return null;
@@ -59,8 +80,8 @@ function App() {
   const addNewHue = (color: string) => {
     const newHue: HueObject = {
       color,
-      username: currentUser?.username || 'default',
-      id: hues.length + 1,
+      username: 'abbieV', // Set the username explicitly to 'abbieV'
+      id: `user_${currentUser?.hues.length + 1}`,
       likes: 0,
       isLiked: false,
     };
@@ -73,23 +94,36 @@ function App() {
     }));
   };
 
-  const toggleLikeForHue = (id: number) => {
+  const toggleLikeForHue = (id: number | string) => {
     setHues((prevHues) =>
       prevHues.map((hue) =>
         hue.id === id
-          ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
+          ? {
+              ...hue,
+              isLiked: !hue.isLiked,
+              likes: hue.likes + (hue.isLiked ? -1 : 1),
+            }
           : hue
       )
     );
 
-    setCurrentUser((prevUser) => ({
-      ...prevUser!,
-      hues: prevUser!.hues.map((hue) =>
-        hue.id === id
-          ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
-          : hue
-      ),
-    }));
+    setCurrentUser((prevUser) => {
+      const isCurrentUserPost = prevUser!.hues.some((hue) => hue.id === id);
+
+      if (isCurrentUserPost) {
+        return {
+          ...prevUser!,
+          likes: prevUser!.likes + (prevUser!.hues.find((hue) => hue.id === id)?.isLiked ? -1 : 1),
+          hues: prevUser!.hues.map((hue) =>
+            hue.id === id
+              ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
+              : hue
+          ),
+        };
+      }
+
+      return prevUser;
+    });
   };
 
   return (
