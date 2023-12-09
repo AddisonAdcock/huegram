@@ -1,39 +1,52 @@
-//import React from 'react';
+import './Palette.css'
 
-interface HueObject {
-  id?: number;
-  color: string;
-  username: string;
-  likes: number;
-  isLiked: boolean;
-}
-
-interface User {
-  username: string;
-  likes: number;
-  hues: HueObject[];
-}
-
-const Profile = ({ currentUser }: { currentUser: User | null }) => {
-  if (!currentUser) {
-    return null; // or display a loading state
-  }
-
+const Profile = () => {
   return (
-    <div className="flex flex-col border-2 p-8 items-center text-white">
-      <div className="palette">
-        {currentUser.hues.map((hue) => (
-          <div key={hue.id} style={{ backgroundColor: hue.color }}></div>
-        ))}
-      </div>
+    <div className='flex flex-col border-2 p-8 items-center text-white'>
 
-      <h1>@{currentUser.username}</h1>
-      <p>Likes: {currentUser.likes}</p>
-      <p>Posts: {currentUser.hues.length}</p>
+        
 
-      {/* Other user stats can be displayed here */}
+        <div className="palette">
+          <div style={{ backgroundColor: '#ff2299'}}></div>
+          <div style={{ backgroundColor: '#ee2299'}}></div>
+          <div style={{ backgroundColor: '#dd2299'}}></div>
+          <div style={{ backgroundColor: '#cc2299'}}></div>
+          <div style={{ backgroundColor: '#bb2299'}}></div>
+          
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div style={{ backgroundColor: ''}}></div>
+          <div ></div>
+
+        </div>
+
+        <h1>@kodom</h1>
+        {/* <div className="flex w-1/2">
+            <img src={kaylee} alt="" className='rounded-full'/>
+        </div> */}
+
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

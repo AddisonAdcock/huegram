@@ -3,11 +3,11 @@ import Main from './components/Main';
 import Profile from './components/Profile';
 
 interface HueObject {
-  id?: number;
-  color: string;
-  username: string;
-  likes: number;
-  isLiked: boolean;
+  id?: number,
+  color: string,
+  username: string,
+  likes: number,
+  isLiked: boolean
 }
 
 interface User {
@@ -18,54 +18,37 @@ interface User {
 
 function App() {
   const [hues, setHues] = useState<HueObject[]>([]);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  const [currentUser] = useState<User>({
+    username: 'kavery',
+    likes: 58,
+    hues: [{ id: 36, color: '#ffa510', username: 'kavery', likes: 15, isLiked: false }],
+  });
 
   useEffect(() => {
-    fetchUserData().then((data) => {
-      if (data) {
-        setCurrentUser(data);
-      }
-    });
-
-    fetchHuesData();
-  }, []);
-
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch('/userData.json');
-      const userData = await response.json();
-      return userData;
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      return null;
-    }
-  };
-
-  const fetchHuesData = () => {
     fetch('https://greenegunnar.pythonanywhere.com/api/hues/')
       .then((res) => res.json())
-      .then((data: any[]) =>
+      .then((data) =>
         setHues(
-          data.map((item: any, index: number) => ({
+          data.map((item: { hex_code: string }) => ({
             ...item,
-            id: index + 1, // Generate a unique ID based on the array index
             color: item.hex_code,
             isLiked: false,
           }))
         )
       );
-  };
+  }, []);
 
   const addNewHue = (color: string) => {
     const newHue: HueObject = {
       color,
-      username: currentUser?.username || 'default',
+      username: currentUser.username,
       id: hues.length + 1,
       likes: 0,
       isLiked: false,
     };
 
-    setHues((prevHues) => [newHue, ...prevHues]);
+    setHues([newHue, ...hues]);
 
     // Update user data
     setCurrentUser((prevUser) => ({
@@ -77,7 +60,9 @@ function App() {
   const toggleLikeForHue = (id: number) => {
     setHues((prevHues) =>
       prevHues.map((hue) =>
-        hue.id === id ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) } : hue
+        hue.id === id
+          ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
+          : hue
       )
     );
 
@@ -85,7 +70,9 @@ function App() {
     setCurrentUser((prevUser) => ({
       ...prevUser!,
       hues: prevUser!.hues.map((hue) =>
-        hue.id === id ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) } : hue
+        hue.id === id
+          ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
+          : hue
       ),
     }));
   };
@@ -93,7 +80,7 @@ function App() {
   return (
     <div className="flex bg-slate-800 h-screen">
       <Main hues={hues} addHue={addNewHue} toggleLike={toggleLikeForHue} />
-      <Profile currentUser={currentUser} />
+      <Profile />
     </div>
   );
 }
