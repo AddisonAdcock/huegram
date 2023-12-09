@@ -44,10 +44,11 @@ function App() {
   const fetchHuesData = () => {
     fetch('https://greenegunnar.pythonanywhere.com/api/hues/')
       .then((res) => res.json())
-      .then((data) =>
+      .then((data: any[]) =>
         setHues(
-          data.map((item: { hex_code: string }) => ({
+          data.map((item: any, index: number) => ({
             ...item,
+            id: index + 1, // Generate a unique ID based on the array index
             color: item.hex_code,
             isLiked: false,
           }))
@@ -64,7 +65,7 @@ function App() {
       isLiked: false,
     };
 
-    setHues([newHue, ...hues]);
+    setHues((prevHues) => [newHue, ...prevHues]);
 
     // Update user data
     setCurrentUser((prevUser) => ({
@@ -76,9 +77,7 @@ function App() {
   const toggleLikeForHue = (id: number) => {
     setHues((prevHues) =>
       prevHues.map((hue) =>
-        hue.id === id
-          ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
-          : hue
+        hue.id === id ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) } : hue
       )
     );
 
@@ -86,9 +85,7 @@ function App() {
     setCurrentUser((prevUser) => ({
       ...prevUser!,
       hues: prevUser!.hues.map((hue) =>
-        hue.id === id
-          ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) }
-          : hue
+        hue.id === id ? { ...hue, isLiked: !hue.isLiked, likes: hue.likes + (hue.isLiked ? -1 : 1) } : hue
       ),
     }));
   };
