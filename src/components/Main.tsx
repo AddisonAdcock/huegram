@@ -22,7 +22,7 @@ const Main = ({ hues, addHue, toggleLike, searchTerm }: Props) => {
   );
 
   return (
-    <div className="flex flex-wrap w-full justify-center gap-8 overflow-y-auto pb-2">
+    <div className="flex flex-wrap w-full justify-center gap-8 overflow-y-auto pb-2 pt-4">
       <PostHue addHue={addHue} />
       {filteredHues.map((hue) => (
         <Hue key={hue.id} hue={hue} toggleLike={toggleLike} />
