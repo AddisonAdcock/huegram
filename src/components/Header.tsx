@@ -30,7 +30,8 @@ const Header: React.FC<HeaderProps> = ({ onSearchChange }) => {
           type="text"
           placeholder="Search..."
           onChange={(e) => onSearchChange(e.target.value)}
-          className="p-2 border border-white rounded-md bg-transparent text-white focus:outline-none focus:border-cyan-500"
+          className="p-2 border border-white rounded-md bg-white text-gray-800 focus:outline-none focus:border-cyan-500 placeholder-gray-500"
+          style={{ maxWidth: '200px' }} // Adjust the max-width to your preference
         />
       </div>
     </header>
