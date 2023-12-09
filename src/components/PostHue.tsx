@@ -1,5 +1,6 @@
+// PostHue.tsx
 import React, { useState } from 'react';
-import Hue from './Hue';
+import Hue, { HueObject } from './Hue';
 
 interface Props {
   addHue: (color: string) => void;
@@ -10,21 +11,31 @@ const PostHue: React.FC<Props> = (props: Props) => {
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    // Ensure the color input starts with '#'
     setColor(inputValue.startsWith('#') ? inputValue : `#${inputValue}`);
   };
 
   const handlePostClick = () => {
-    // Call the addHue function with the current color
     props.addHue(color);
-    // Reset the color to an initial value or an empty string
-    setColor('#'); // You can set it to an empty string by using setColor('')
+    setColor('#');
+  };
+
+  // Define a default HueObject for the initial rendering
+  const defaultHueObject: HueObject = {
+    id: 0, // Adjust the id according to your data model
+    color,
+    username: "abbieV",
+    likes: 3,
+    isLiked: false,
+  };
+
+  // Placeholder toggleLike function
+  const toggleLike = (id: number) => {
+    // Implement your toggleLike logic here
+    console.log(`Toggle like for Hue with id: ${id}`);
   };
 
   return (
     <div className="flex flex-row justify-between ">
-
-      {/* Color Input Section */}
       <div className="flex flex-col p-11 gap-4 text-center">
         <input
           type="text"
@@ -43,9 +54,8 @@ const PostHue: React.FC<Props> = (props: Props) => {
         </button>
       </div>
 
-      {/* Display Posted Hue */}
-      <Hue hue={{ color, username: "abbieV", likes: 3 }} />
-
+      {/* Provide the toggleLike prop */}
+      <Hue hue={defaultHueObject} toggleLike={toggleLike} />
     </div>
   );
 };

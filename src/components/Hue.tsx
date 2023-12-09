@@ -1,6 +1,7 @@
+// Hue.tsx
 import React from 'react';
 
-interface HueObject {
+export interface HueObject {
   id: number;
   color: string;
   username: string;
